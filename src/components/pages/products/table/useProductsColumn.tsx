@@ -1,15 +1,13 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { ColumnsType } from 'antd/es/table';
-import { FaRegEdit } from 'react-icons/fa';
+import { FaExternalLinkAlt } from 'react-icons/fa';
+import {} from 'react-icons/fa6';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { NavLink } from 'react-router-dom';
 import { Confirm } from 'src/components';
 import { useDeleteProductMutation } from 'src/services';
 import { TProduct } from 'src/services/products/products.types';
-import { useFormStorageStore } from 'src/store';
 
 function useProductsColumn() {
-  const { setParamsForm } = useFormStorageStore();
   const { mutate: deleteProduct } = useDeleteProductMutation();
 
   const columns: ColumnsType<TProduct> = [
@@ -21,19 +19,19 @@ function useProductsColumn() {
       width: 100,
     },
     {
-      title: 'Русский',
+      title: 'Название (русский)',
       dataIndex: 'name',
       key: 'name',
       render: (_, product) => product.name.ru || '-',
     },
     {
-      title: 'Каракалпакский',
+      title: 'Название (каракалпакский)',
       dataIndex: 'name',
       key: 'name',
       render: (_, product) => product.name.kiril || '-',
     },
     {
-      title: 'Qaraqalpaqsha',
+      title: 'Название (qaraqalpaqsha)',
       dataIndex: 'name',
       key: 'name',
       render: (_, product) => product.name.latin || '-',
@@ -43,6 +41,7 @@ function useProductsColumn() {
       dataIndex: 'price',
       key: 'price',
       render: (_, product) => product.price || '-',
+      sorter: (a, b) => a.price - b.price,
     },
     {
       title: 'Действия',
@@ -51,9 +50,6 @@ function useProductsColumn() {
       width: 100,
       render: (_, category) => (
         <div className="flex items-center justify-center gap-2">
-          <span className="text-lg cursor-pointer" onClick={() => setParamsForm(category)}>
-            <FaRegEdit />
-          </span>
           <Confirm
             title="Удалить"
             description="Вы действительно хотите удалить?"
@@ -66,6 +62,9 @@ function useProductsColumn() {
               <RiDeleteBin6Line />
             </span>
           </Confirm>
+          <NavLink to={`${category.id}`} className="text-lg cursor-pointer hover:text-black">
+            <FaExternalLinkAlt />
+          </NavLink>
         </div>
       ),
     },
