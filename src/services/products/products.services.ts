@@ -4,7 +4,7 @@ import { TResponse } from '../index.types';
 
 import { TCreateProduct, TDetailsProduct, TProduct } from './products.types';
 
-const url = 'products';
+const url = '/v2/products';
 
 const axiosGetProducts = async (page: number): Promise<TResponse<TProduct>> => {
   const response = await api.get(url, { params: { page } });

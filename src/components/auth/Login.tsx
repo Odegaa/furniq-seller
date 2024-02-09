@@ -26,7 +26,6 @@ const Login: React.FC = () => {
     if (isError) {
       message.error('Телефон номер или пароль неверный!');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, signIn, navigate, data, isError]);
 
   return (

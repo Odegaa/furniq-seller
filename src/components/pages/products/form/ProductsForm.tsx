@@ -2,7 +2,12 @@ import { Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import React from 'react';
 import { ButtonForm, CustomForm, CustomModal } from 'src/components';
-import { useCreateProductMutation, useGetCategoriesQuery } from 'src/services';
+import {
+  useCreateProductMutation,
+  useGetCategoriesQuery,
+  useGetColorsQuery,
+  useGetMaterialsQuery,
+} from 'src/services';
 import { TCreateProductValues } from 'src/services/products/products.types';
 import { useFormStorageStore } from 'src/store';
 
@@ -13,6 +18,8 @@ const ProductsForm: React.FC = () => {
   const { toggleDrawer } = useFormStorageStore();
   const { mutate: addProduct, isPending: isPendingCreate } = useCreateProductMutation();
   const { data: categories } = useGetCategoriesQuery();
+  const { data: colors } = useGetColorsQuery();
+  const { data: materials } = useGetMaterialsQuery();
 
   const onFinish = (values: TCreateProductValues) => {
     const name = {
@@ -27,14 +34,15 @@ const ProductsForm: React.FC = () => {
       latin: values.description_latin,
     };
 
-    console.log({ category_id: values.category_id, name, description });
-
-    // addProduct({
-    //   category_id: values.category_id,
-    //   name,
-    //   description,
-    //   inventory: {},
-    // });
+    addProduct({
+      category_id: values.category_id,
+      name,
+      description,
+      color_id: values.color_id,
+      material_id: values.material_id,
+      price: values.price,
+      quantity: values.quantity,
+    });
 
     form.resetFields();
     toggleDrawer();
@@ -81,6 +89,50 @@ const ProductsForm: React.FC = () => {
               <TextArea className="w-full" />
             </Form.Item>
           ))}
+          <Form.Item
+            label="Цвет"
+            name="color_id"
+            required
+            rules={[{ required: true, message: 'Пожалуйста выберите цвет!' }]}
+          >
+            <Select
+              className="w-full"
+              options={colors?.data.map((color) => ({
+                label: color.name.ru,
+                value: color.id,
+              }))}
+            />
+          </Form.Item>
+          <Form.Item
+            label="Материал"
+            name="material_id"
+            required
+            rules={[{ required: true, message: 'Пожалуйста выберите материал!' }]}
+          >
+            <Select
+              className="w-full"
+              options={materials?.data.map((material) => ({
+                label: material.name.ru,
+                value: material.id,
+              }))}
+            />
+          </Form.Item>
+          <Form.Item
+            label="Цена"
+            name="price"
+            required
+            rules={[{ required: true, message: 'Пожалуйста заполняйте поле, Цена!' }]}
+          >
+            <Input className="w-full" type="number" />
+          </Form.Item>
+          <Form.Item
+            label="Количество"
+            name="quantity"
+            required
+            rules={[{ required: true, message: 'Пожалуйста заполняйте поле, Количество!' }]}
+          >
+            <Input className="w-full" type="number" />
+          </Form.Item>
         </CustomForm>
       </CustomModal>
     </div>

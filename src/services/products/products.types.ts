@@ -1,13 +1,17 @@
+import { TCategory } from '../categories/categories.types';
+import { TColor, TMaterial } from '../colors/color.types';
 import { TName } from '../index.types';
 
 export type TProduct = {
   id: number;
-  category_id: number;
+  category: TCategory;
   name: TName;
+  price: number;
   description: TName;
-  inventory: TInvertory[];
-  created_at: string;
-  updated_at: string;
+  quantity: number;
+  number_sold: number;
+  color: TColor;
+  material_id: TMaterial;
 };
 
 export type TDetailsProduct = {
@@ -18,7 +22,10 @@ export type TCreateProduct = {
   name: TName;
   description: TName;
   category_id: number;
-  inventory: TInvertory[];
+  price: number;
+  quantity: number;
+  color_id: number;
+  material_id: number;
 };
 
 export type TCreateProductValues = {
@@ -29,7 +36,10 @@ export type TCreateProductValues = {
   description_ru: string;
   description_kiril: string;
   description_latin: string;
-  inventory: TCreateInventory[];
+  price: number;
+  quantity: number;
+  color_id: number;
+  material_id: number;
 };
 
 export type TCreateInventory = {
