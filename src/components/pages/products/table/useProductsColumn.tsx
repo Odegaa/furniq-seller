@@ -44,7 +44,7 @@ function useProductsColumn() {
       render: (_, product) =>
         // eslint-disable-next-line implicit-arrow-linebreak
         categories?.data.map(
-          (category) => category.id === product.category_id && category.name.ru,
+          (category) => category.id === product.category.id && category.name.ru,
         ) || '-',
     },
     {
