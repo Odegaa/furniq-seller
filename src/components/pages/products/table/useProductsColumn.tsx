@@ -4,11 +4,12 @@ import {} from 'react-icons/fa6';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { NavLink } from 'react-router-dom';
 import { Confirm } from 'src/components';
-import { useDeleteProductMutation } from 'src/services';
+import { useDeleteProductMutation, useGetCategoriesQuery } from 'src/services';
 import { TProduct } from 'src/services/products/products.types';
 
 function useProductsColumn() {
   const { mutate: deleteProduct } = useDeleteProductMutation();
+  const { data: categories } = useGetCategoriesQuery();
 
   const columns: ColumnsType<TProduct> = [
     {
@@ -37,11 +38,14 @@ function useProductsColumn() {
       render: (_, product) => product.name.latin || '-',
     },
     {
-      title: 'Цена',
-      dataIndex: 'price',
-      key: 'price',
-      render: (_, product) => product.price || '-',
-      sorter: (a, b) => a.price - b.price,
+      title: 'Категория',
+      dataIndex: 'category_id',
+      key: 'category_id',
+      render: (_, product) =>
+        // eslint-disable-next-line implicit-arrow-linebreak
+        categories?.data.map(
+          (category) => category.id === product.category_id && category.name.ru,
+        ) || '-',
     },
     {
       title: 'Действия',

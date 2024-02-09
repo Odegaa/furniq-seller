@@ -1,5 +1,5 @@
 // eslint-disable-next-line object-curly-newline
-import { Button, Drawer, DrawerProps, Flex, FormInstance, Space } from 'antd';
+import { Button, Flex, FormInstance, Modal, ModalProps, Space } from 'antd';
 import React from 'react';
 import { useFormStorageStore } from 'src/store';
 
@@ -8,7 +8,7 @@ interface IProps {
   isLoading: boolean;
 }
 
-const CustomDrawer: React.FC<DrawerProps & IProps> = (props) => {
+const CustomModal: React.FC<ModalProps & IProps> = (props) => {
   const { form, isLoading } = props;
   // eslint-disable-next-line object-curly-newline
   const { drawer, paramsForm, setParamsItem, toggleDrawer } = useFormStorageStore();
@@ -27,13 +27,13 @@ const CustomDrawer: React.FC<DrawerProps & IProps> = (props) => {
   }, [form, isLoading]);
 
   return (
-    <Drawer
+    <Modal
       open={drawer}
-      onClose={onClose}
+      onCancel={onClose}
       title={paramsForm ? 'Изменить' : 'Добавить'}
       footer={
         // eslint-disable-next-line react/jsx-wrap-multilines
-        <Flex>
+        <Flex className="justify-end">
           <Space>
             <Button className="border-slate-800 " onClick={onClose}>
               Отмена
@@ -49,4 +49,4 @@ const CustomDrawer: React.FC<DrawerProps & IProps> = (props) => {
   );
 };
 
-export { CustomDrawer };
+export { CustomModal };
