@@ -1,20 +1,19 @@
+import { Form } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 import React from 'react';
 import { TName } from 'src/services/index.types';
 
 const InnerDescription: React.FC<{ description: TName | undefined }> = ({ description }) => (
-  <div className="flex flex-col gap-2">
-    <p>
-      <span className="font-bold">Описание (русский): </span>
-      <span>{description?.ru}</span>
-    </p>
-    <p>
-      <span className="font-bold">Описание (каракалпакша): </span>
-      <span>{description?.kiril}</span>
-    </p>
-    <p>
-      <span className="font-bold">Описание (qaraqalpaqsha): </span>
-      <span>{description?.latin}</span>
-    </p>
+  <div className="flex flex-col p-5">
+    <Form.Item label="Описание (русский):">
+      <TextArea className="w-full pointer-events-none" value={description?.ru} />
+    </Form.Item>
+    <Form.Item label="Описание (каракалпакша):">
+      <TextArea className="w-full pointer-events-none" value={description?.ru} />
+    </Form.Item>
+    <Form.Item label="Описание (qaraqalpaqsha):">
+      <TextArea className="w-full pointer-events-none" value={description?.ru} />
+    </Form.Item>
   </div>
 );
 

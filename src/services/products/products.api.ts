@@ -10,7 +10,7 @@ import {
   axiosPostProduct,
   axiosPutProduct,
 } from './products.services';
-import { TCreateProduct, TProduct } from './products.types';
+import { TCreateProduct, TProduct, TUpdateProduct } from './products.types';
 
 const key = 'products';
 
@@ -40,7 +40,7 @@ const useCreateProductMutation = () => {
 const useUpdateProductMutation = () => {
   const client = useQueryClient();
   return useMutation({
-    mutationFn: (value: TProduct) => axiosPutProduct(value),
+    mutationFn: (value: TUpdateProduct) => axiosPutProduct(value),
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [key] });
       message.success('Успешно изменен!');

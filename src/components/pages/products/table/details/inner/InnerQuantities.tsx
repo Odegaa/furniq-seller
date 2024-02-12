@@ -1,3 +1,4 @@
+import { Form, Input } from 'antd';
 import React from 'react';
 
 const InnerQuantities: React.FC<{
@@ -5,14 +6,12 @@ const InnerQuantities: React.FC<{
   number_sold: number | undefined;
 }> = ({ number_sold, quantity }) => (
   <>
-    <div>
-      <span>Количество оставшихся: </span>
-      <span>{quantity}</span>
-    </div>
-    <div>
-      <span>Количество проданных: </span>
-      <span>{number_sold}</span>
-    </div>
+    <Form.Item label="Количество оставшихся:" className="px-5">
+      <Input className="w-full pointer-events-none" value={quantity} />
+    </Form.Item>
+    <Form.Item label="Количество проданных:" className="px-5">
+      <Input className="w-full pointer-events-none" value={number_sold} />
+    </Form.Item>
   </>
 );
 

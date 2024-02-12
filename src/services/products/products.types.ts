@@ -53,8 +53,11 @@ export type TUpdateProduct = {
   id: number;
   category_id: number;
   name: TName;
-  price: number;
   description: TName;
+  price: number;
+  quantity: number;
+  color_id: number;
+  material_id: number;
 };
 
 export type TInvertory = {

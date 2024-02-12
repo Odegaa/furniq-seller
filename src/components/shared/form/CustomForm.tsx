@@ -15,7 +15,7 @@ const CustomForm: React.FC<FormProps & IProps> = ({ form, onFinish, children }) 
     onFinish={onFinish}
     layout="vertical"
     autoComplete="off"
-    className="min-h-full"
+    className="min-h-full w-full"
   >
     {children}
   </Form>

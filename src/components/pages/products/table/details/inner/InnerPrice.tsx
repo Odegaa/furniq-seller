@@ -1,10 +1,10 @@
+import { Form, Input } from 'antd';
 import React from 'react';
 
 const InnerPrice: React.FC<{ price: number | undefined }> = ({ price }) => (
-  <p>
-    <span className="font-bold">Цена: </span>
-    <span>{price}</span>
-  </p>
+  <Form.Item label="Цена:" className="px-5">
+    <Input value={price} className="w-full pointer-events-none" />
+  </Form.Item>
 );
 
 export { InnerPrice };

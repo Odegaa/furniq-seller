@@ -2,9 +2,10 @@ import { api } from 'src/app';
 
 import { TResponse } from '../index.types';
 
-import { TCreateProduct, TDetailsProduct, TProduct } from './products.types';
+// eslint-disable-next-line object-curly-newline
+import { TCreateProduct, TDetailsProduct, TProduct, TUpdateProduct } from './products.types';
 
-const url = '/v2/products';
+const url = 'products';
 
 const axiosGetProducts = async (page: number): Promise<TResponse<TProduct>> => {
   const response = await api.get(url, { params: { page } });
@@ -21,7 +22,7 @@ const axiosPostProduct = async (value: TCreateProduct): Promise<void> => {
   return response.data;
 };
 
-const axiosPutProduct = async (value: TProduct): Promise<void> => {
+const axiosPutProduct = async (value: TUpdateProduct): Promise<void> => {
   const response = await api.put(`${url}/${value.id}`, value);
   return response.data;
 };
