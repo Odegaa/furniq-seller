@@ -10,7 +10,9 @@ const OrderShowTable: React.FC = () => {
   const { data, isLoading } = useGetOrderByIdQuery(Number(id));
   const columns = useOrderShowColumn();
 
-  return <CustomTable loading={isLoading} dataSource={data?.products} columns={columns} />;
+  console.log(data);
+
+  return <CustomTable loading={isLoading} dataSource={data?.data.products} columns={columns} />;
 };
 
 export { OrderShowTable };

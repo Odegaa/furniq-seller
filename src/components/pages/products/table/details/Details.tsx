@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { Section } from 'src/components';
 import { useGetProductByIdQuery } from 'src/services';
 
-import { DetailsForm } from './form';
 import { DetailsInner } from './inner';
 
 const Details: React.FC = () => {
@@ -18,10 +17,7 @@ const Details: React.FC = () => {
           <Spin size="large" />
         </div>
       ) : (
-        <>
-          <DetailsForm />
-          <DetailsInner data={product?.data} />
-        </>
+        <DetailsInner data={product?.data} />
       )}
     </Section>
   );

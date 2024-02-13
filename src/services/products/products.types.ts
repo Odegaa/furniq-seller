@@ -19,9 +19,20 @@ export type TDetailsProduct = {
 };
 
 export type TCreateProduct = {
+  category_id: number;
   name: TName;
   description: TName;
+  price: number;
+  quantity: number;
+  color_id: number;
+  material_id: number;
+};
+
+export type TUpdateProduct = {
+  id: number;
   category_id: number;
+  name: TName;
+  description: TName;
   price: number;
   quantity: number;
   color_id: number;
@@ -47,17 +58,6 @@ export type TCreateInventory = {
   material: TName;
   price: number;
   quantity: number;
-};
-
-export type TUpdateProduct = {
-  id: number;
-  category_id: number;
-  name: TName;
-  description: TName;
-  price: number;
-  quantity: number;
-  color_id: number;
-  material_id: number;
 };
 
 export type TInvertory = {

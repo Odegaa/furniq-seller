@@ -1,15 +1,21 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable react/jsx-curly-newline */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { ColumnsType } from 'antd/es/table';
+import { CiEdit } from 'react-icons/ci';
 import { FaExternalLinkAlt } from 'react-icons/fa';
-import {} from 'react-icons/fa6';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { NavLink } from 'react-router-dom';
 import { Confirm } from 'src/components';
 import { useDeleteProductMutation, useGetCategoriesQuery } from 'src/services';
 import { TProduct } from 'src/services/products/products.types';
+import { useFormStorageStore } from 'src/store';
 
 function useProductsColumn() {
   const { mutate: deleteProduct } = useDeleteProductMutation();
   const { data: categories } = useGetCategoriesQuery();
+  const { setParamsForm } = useFormStorageStore();
 
   const columns: ColumnsType<TProduct> = [
     {
@@ -54,6 +60,9 @@ function useProductsColumn() {
       width: 100,
       render: (_, category) => (
         <div className="flex items-center justify-center gap-2">
+          <span className="text-2xl cursor-pointer" onClick={() => setParamsForm(category)}>
+            <CiEdit />
+          </span>
           <Confirm
             title="Удалить"
             description="Вы действительно хотите удалить?"

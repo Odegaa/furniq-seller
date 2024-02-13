@@ -7,6 +7,7 @@ import {
   useGetCategoriesQuery,
   useGetColorsQuery,
   useGetMaterialsQuery,
+  useUpdateProductMutation,
 } from 'src/services';
 import { TCreateProductValues } from 'src/services/products/products.types';
 import { useFormStorageStore } from 'src/store';
@@ -15,8 +16,9 @@ import { inputs, textareas } from './inputs';
 
 const ProductsForm: React.FC = () => {
   const [form] = Form.useForm();
-  const { toggleDrawer } = useFormStorageStore();
+  const { toggleDrawer, paramsForm } = useFormStorageStore();
   const { mutate: addProduct, isPending: isPendingCreate } = useCreateProductMutation();
+  const { mutate: editProduct, isPending: isPendingUpdate } = useUpdateProductMutation();
   const { data: categories } = useGetCategoriesQuery();
   const { data: colors } = useGetColorsQuery();
   const { data: materials } = useGetMaterialsQuery();
@@ -34,24 +36,54 @@ const ProductsForm: React.FC = () => {
       latin: values.description_latin,
     };
 
-    addProduct({
-      category_id: values.category_id,
-      name,
-      description,
-      color_id: values.color_id,
-      material_id: values.material_id,
-      price: values.price,
-      quantity: values.quantity,
-    });
+    if (!paramsForm) {
+      addProduct({
+        category_id: values.category_id,
+        name,
+        description,
+        color_id: values.color_id,
+        material_id: values.material_id,
+        price: values.price,
+        quantity: values.quantity,
+      });
+    } else {
+      editProduct({
+        id: paramsForm.id,
+        category_id: values.category_id,
+        name,
+        description,
+        color_id: values.color_id,
+        material_id: values.material_id,
+        price: values.price,
+        quantity: values.quantity,
+      });
+    }
 
     form.resetFields();
     toggleDrawer();
   };
 
+  React.useEffect(() => {
+    if (paramsForm) {
+      form.setFieldsValue({
+        ...paramsForm,
+        category_id: paramsForm.category?.id,
+        name_ru: paramsForm.name?.ru,
+        name_kiril: paramsForm.name?.kiril,
+        name_latin: paramsForm.name?.latin,
+        description_ru: paramsForm.description.ru,
+        description_latin: paramsForm.description.latin,
+        description_kiril: paramsForm.description.kiril,
+        color_id: paramsForm.color?.id,
+        material_id: paramsForm.material?.id,
+      });
+    }
+  }, [paramsForm, form]);
+
   return (
     <div className="flex justify-end px-5 pt-4">
       <ButtonForm toggleDrawer={toggleDrawer} />
-      <CustomModal form={form} isLoading={isPendingCreate}>
+      <CustomModal form={form} isLoading={paramsForm ? isPendingUpdate : isPendingCreate}>
         <CustomForm form={form} onFinish={onFinish}>
           <Form.Item
             label="Категория"

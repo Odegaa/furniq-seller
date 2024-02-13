@@ -12,7 +12,9 @@ export type TOrders = {
 };
 
 export type TOrderShow = {
-  products: TProduct[];
+  data: {
+    products: TProduct[];
+  };
 };
 
 export type TUser = {
