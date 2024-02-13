@@ -19,6 +19,9 @@ const useUploadImageMutation = (id: number) => {
       queryClient.invalidateQueries({ queryKey: ['images', id] });
       message.success('Успешно добавлен');
     },
+    onError: (error) => {
+      message.error(`${error}`);
+    },
   });
 };
 
@@ -29,6 +32,9 @@ const useDeleteImageMutation = (id: number) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['images', id] });
       message.success('Успешно удален');
+    },
+    onError: () => {
+      message.success('Изображение не удален');
     },
   });
 };

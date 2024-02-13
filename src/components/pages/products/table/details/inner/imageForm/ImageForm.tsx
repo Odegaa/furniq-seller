@@ -3,20 +3,23 @@ import React from 'react';
 import { useUploadImageMutation } from 'src/services/image/image.api';
 
 const ImageForm: React.FC<{ id: number | undefined }> = ({ id }) => {
-  const [files, setFiles] = React.useState<File[] | undefined>();
+  const [files, setFiles] = React.useState<FileList | undefined>();
   const { mutate: uploadImage, isPending } = useUploadImageMutation(Number(id));
 
   const onFinish = () => {
     if (files) {
       const formData = new FormData();
-      formData.append('images', files);
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < files.length; i++) {
+        formData.append('images[]', files[i]);
+      }
       uploadImage(formData);
     }
   };
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement & {
-      file: FileList[];
+      file: FileList;
     };
     if (target.files) {
       setFiles(target.files);
