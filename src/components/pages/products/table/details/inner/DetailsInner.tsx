@@ -2,6 +2,7 @@ import { Form } from 'antd';
 import React from 'react';
 import { TProduct } from 'src/services/products/products.types';
 
+import { Discount } from './discount';
 import { ImageForm } from './imageForm';
 import { InnerCategory } from './InnerCategory';
 import { InnerColor } from './InnerColor';
@@ -29,6 +30,7 @@ const DetailsInner: React.FC<{ data: TProduct | undefined }> = ({ data }) => (
         <InnerQuantities number_sold={data?.number_sold} quantity={data?.quantity} />
         <InnerPrice price={data?.price} />
       </Form>
+      <Discount id={data?.id} price={data?.price} />
     </div>
     <Review id={data?.id} />
   </div>

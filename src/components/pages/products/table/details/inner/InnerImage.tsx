@@ -15,7 +15,7 @@ const InnerImage: React.FC<{ id: number | undefined }> = ({ id }) => {
   const { mutate } = useDeleteImageMutation(Number(id));
 
   return (
-    <div className="max-w-60 sm:max-w-80 w-full overflow-hidden p-8">
+    <div className="w-64 sm:w-72 overflow-hidden p-8">
       <Swiper
         spaceBetween={30}
         pagination={{
@@ -31,11 +31,11 @@ const InnerImage: React.FC<{ id: number | undefined }> = ({ id }) => {
           // eslint-disable-next-line operator-linebreak
           images?.data.length &&
           images?.data.map(({ id, url }) => (
-            <SwiperSlide key={id} className="w-full min-h-60">
+            <SwiperSlide key={id} className="w-64 sm:w-72 h-72 sm:h-[340px]">
               <img
                 src={url || noImage}
                 alt={id.toString() || 'noImage'}
-                className="min-h-60 w-full object-cover"
+                className="h-72 sm:h-80 w-64 sm:w-72 object-cover"
               />
               <div className="flex items-center justify-end px-4">
                 <Confirm

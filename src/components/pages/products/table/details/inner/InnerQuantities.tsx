@@ -7,10 +7,10 @@ const InnerQuantities: React.FC<{
 }> = ({ number_sold, quantity }) => (
   <>
     <Form.Item label="Количество оставшихся:" className="px-5">
-      <Input className="w-full pointer-events-none" value={quantity} />
+      <Input className="w-full pointer-events-none" value={quantity || '-'} />
     </Form.Item>
     <Form.Item label="Количество проданных:" className="px-5">
-      <Input className="w-full pointer-events-none" value={number_sold} />
+      <Input className="w-full pointer-events-none" value={number_sold || '-'} />
     </Form.Item>
   </>
 );
