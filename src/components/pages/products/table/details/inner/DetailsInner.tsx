@@ -26,7 +26,7 @@ const DetailsInner: React.FC<{ data: TProduct | undefined }> = ({ data }) => (
         <InnerDescription description={data?.description} />
         <InnerCategory category={data?.category} />
         <InnerColor color={data?.color} />
-        <InnerMaterial material={data?.material_id} />
+        <InnerMaterial material={data?.material} />
         <InnerQuantities number_sold={data?.number_sold} quantity={data?.quantity} />
         <InnerPrice price={data?.price} />
       </Form>
