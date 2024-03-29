@@ -10,7 +10,7 @@ import {
   axiosPostProduct,
   axiosPutProduct,
 } from './products.services';
-import { TCreateProduct, TProduct, TUpdateProduct } from './products.types';
+import { TCreateProduct, TUpdateProduct } from './products.types';
 
 const key = 'products';
 
