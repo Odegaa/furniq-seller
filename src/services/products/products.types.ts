@@ -11,7 +11,7 @@ export type TProduct = {
   quantity: number;
   number_sold: number;
   color: TColor;
-  material_id: TMaterial;
+  material: TMaterial;
 };
 
 export type TDetailsProduct = {
